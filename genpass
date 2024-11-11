@@ -33,15 +33,12 @@ generate_password() {
     [ "$use_numbers" -eq 1 ] && chars+="0123456789"
     [ "$use_symbols" -eq 1 ] && chars+="$SYMBOLS"
 
-    # Ensure first and last characters are alphabetic
-    local first_char="${ALPHABET:RANDOM % ${#ALPHABET}:1}"
-    local last_char="${ALPHABET:RANDOM % ${#ALPHABET}:1}"
+    # Ensure the first and last characters are alphabetic
+    local first_char=$(echo "$ALPHABET" | fold -w1 | shuf -n1)
+    local last_char=$(echo "$ALPHABET" | fold -w1 | shuf -n1)
 
-    # Generate the middle characters of the password
-    local middle=""
-    for ((i = 1; i <= length - 2; i++)); do
-        middle+="${chars:RANDOM % ${#chars}:1}"
-    done
+    # Generate the middle characters using /dev/urandom
+    local middle=$(< /dev/urandom tr -dc "$chars" | head -c $((length - 2)))
 
     # Combine to form the password
     echo "$first_char$middle$last_char"
@@ -89,4 +86,3 @@ fi
 # Generate and display the password
 password=$(generate_password "$length" "$use_numbers" "$use_symbols")
 echo "Generated password: $password"
-
