@@ -1,0 +1,18 @@
+How to Install on Linux Machine
+
+Steps:
+1. Clone this repository: git clone https://github.com/bydzen/genpass.git
+2. Enter the directory: cd genpass/
+3. Copy main file to binary: sudo cp genpass /usr/bin/
+4. Make executable: sudo chmod +x /usr/bin/genpass
+
+Usage:
+genpass 32 1 1
+
+Help:
+genpass --help
+
+Manual:
+The manual is available only at .deb package, make sure you install the .deb installer.
+
+Enjoy.

@@ -1,0 +1,92 @@
+#!/bin/bash
+
+# Default settings
+DEFAULT_LENGTH=32
+DEFAULT_USE_NUMBERS=1
+DEFAULT_USE_SYMBOLS=1
+SYMBOLS='!@#$%&(),"'
+ALPHABET="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+# Function to display help message
+show_help() {
+    echo "Usage: genpass [<length> <use_numbers> <use_symbols>]"
+    echo
+    echo "Options:"
+    echo "  --help, -h          Show this help message and exit."
+    echo "  <length>            Number of characters for the password (default: $DEFAULT_LENGTH)."
+    echo "  <use_numbers>       Include numbers in the password (1 for yes, 0 for no, default: $DEFAULT_USE_NUMBERS)."
+    echo "  <use_symbols>       Include symbols in the password (1 for yes, 0 for no, default: $DEFAULT_USE_SYMBOLS)."
+    echo
+    echo "Examples:"
+    echo "  genpass             # Prompt for inputs with defaults."
+    echo "  genpass 16 1 0      # Generate a 16-character password with numbers, without symbols."
+    echo
+}
+
+# Function to generate a random password
+generate_password() {
+    local length=$1
+    local use_numbers=$2
+    local use_symbols=$3
+
+    local chars="$ALPHABET"
+    [ "$use_numbers" -eq 1 ] && chars+="0123456789"
+    [ "$use_symbols" -eq 1 ] && chars+="$SYMBOLS"
+
+    # Ensure first and last characters are alphabetic
+    local first_char="${ALPHABET:RANDOM % ${#ALPHABET}:1}"
+    local last_char="${ALPHABET:RANDOM % ${#ALPHABET}:1}"
+
+    # Generate the middle characters of the password
+    local middle=""
+    for ((i = 1; i <= length - 2; i++)); do
+        middle+="${chars:RANDOM % ${#chars}:1}"
+    done
+
+    # Combine to form the password
+    echo "$first_char$middle$last_char"
+}
+
+# Check for help option and validate arguments
+if [[ "$1" == "--help" || "$1" == "-h" ]]; then
+    show_help
+    exit 0
+elif [[ "$#" -gt 0 && ! "$1" =~ ^[0-9]+$ ]]; then
+    echo "Error: Unrecognized argument '$1'. Use --help to see the correct usage."
+    exit 1
+fi
+
+# Main program
+if [ "$#" -eq 0 ]; then
+    # Prompt user for inputs if no arguments are provided
+    read -p "Enter the length of the password (default is $DEFAULT_LENGTH): " length
+    length=${length:-$DEFAULT_LENGTH}
+
+    read -p "Include numbers? (1 for yes, 0 for no, default is $DEFAULT_USE_NUMBERS): " use_numbers
+    use_numbers=${use_numbers:-$DEFAULT_USE_NUMBERS}
+
+    read -p "Include symbols? (1 for yes, 0 for no, default is $DEFAULT_USE_SYMBOLS): " use_symbols
+    use_symbols=${use_symbols:-$DEFAULT_USE_SYMBOLS}
+else
+    # Use arguments if provided
+    length=${1:-$DEFAULT_LENGTH}
+    use_numbers=${2:-$DEFAULT_USE_NUMBERS}
+    use_symbols=${3:-$DEFAULT_USE_SYMBOLS}
+fi
+
+# Validate the length
+if ! [[ "$length" =~ ^[0-9]+$ ]] || [ "$length" -lt 2 ]; then
+    echo "Error: Password length must be a number greater than 1."
+    exit 1
+fi
+
+# Validate number and symbol flags
+if ! [[ "$use_numbers" =~ ^[01]$ ]] || ! [[ "$use_symbols" =~ ^[01]$ ]]; then
+    echo "Error: Number and symbol options must be 1 (true) or 0 (false)."
+    exit 1
+fi
+
+# Generate and display the password
+password=$(generate_password "$length" "$use_numbers" "$use_symbols")
+echo "Generated password: $password"
+

@@ -1,0 +1,13 @@
+.TH genpass 1 "November 2024" "genpass 1.0" "Password Generator"
+.SH NAME
+genpass \- generate random passwords with customizable options
+.SH SYNOPSIS
+.B genpass
+[<length> <use_numbers> <use_symbols>]
+.SH DESCRIPTION
+.B genpass
+is a tool for generating random passwords. The user can specify password length,
+whether to include numbers, and whether to include symbols.
+.SH OPTIONS
+--help, -h
+    Show help message and exit.
