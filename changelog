@@ -1,6 +1,0 @@
-genpass (1.0-1) unstable; urgency=low
-
-  * Initial release of genpass, a command-line tool for generating random
-    passwords. No bugs closed in this initial release.
-
- -- Sultan Kautsar <contact@sultankautsar.com>  Sun, 10 Nov 2024 08:00:00 +0000
