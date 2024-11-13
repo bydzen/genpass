@@ -19,6 +19,7 @@ show_help() {
     echo
     echo "Examples:"
     echo "  genpass             # Prompt for inputs with defaults."
+    echp "  genpass 16          # Generate a 16-character password with numbers and symbols."
     echo "  genpass 16 1 0      # Generate a 16-character password with numbers, without symbols."
     echo
 }
