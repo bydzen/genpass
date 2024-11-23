@@ -1,15 +1,23 @@
+Genpass is the generate password using urandom seed from system that have
+completely unique phrase.
+
 How to Install on Linux Machine
 
 Steps:
-1. Clone this repository: git clone https://github.com/bydzen/genpass.git
-2. Enter the directory: cd genpass/
-3. Copy main file to binary: sudo cp genpass /usr/bin/
-4. Make executable: sudo chmod +x /usr/bin/genpass
+1. Clone this repository:
+   git clone https://github.com/bydzen/genpass.git
+2. Enter the directory:
+   cd genpass/
+3. Copy main file to binary:
+   sudo cp genpass /usr/bin/
+4. Make executable:
+   sudo chmod +x /usr/bin/genpass
 
 Usage:
 genpass         # Prompt for inputs with defaults.
 genpass 16      # Generate a 16-character password with numbers and symbols.
-genpass 16 1 0  # Generate a 16-character password with numbers, without symbols.
+genpass 16 1 0  # Generate a 16-character password with numbers, without
+                  symbols.
 
 Help:
 genpass --help
