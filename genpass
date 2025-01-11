@@ -4,7 +4,7 @@
 DEFAULT_LENGTH=32
 DEFAULT_USE_NUMBERS=1
 DEFAULT_USE_SYMBOLS=1
-SYMBOLS='!@#$%&(),"'
+SYMBOLS='!@#$%&()'
 ALPHABET="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 # Function to display help message
